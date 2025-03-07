@@ -47,7 +47,12 @@ const Body = () => {
         })
         if (audioRef.current) {
             audioRef.current.src = song.musicUrl;
-            await audioRef.current.play();
+            try {
+                await audioRef.current.play(); // Attempt to play
+                setIsPlaying(true);
+            } catch (err) {
+                console.warn("Autoplay blocked. User interaction needed.", err);
+            }
         }
 
     }
@@ -108,6 +113,21 @@ const Body = () => {
         setCurrentSong(data[prevIndex]);
         setIsPlaying(true);
     }
+
+    const handleSeek = (event) => {
+        const audio = audioRef.current;
+        if (!audio) return;
+    
+        // Get the clicked position relative to the progress bar
+        const progressBar = event.currentTarget;
+        const clickX = event.clientX - progressBar.getBoundingClientRect().left;
+        const progressBarWidth = progressBar.clientWidth;
+    
+        // Calculate the new time based on the percentage clicked
+        const newTime = (clickX / progressBarWidth) * audio.duration;
+        audio.currentTime = newTime;
+    };
+    
 
     const filteredSongs = data.filter((song) =>
         song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -246,7 +266,7 @@ const Body = () => {
                             <div><img src={currentSong.thumbnail} alt="cover image"height={400} width={400} /></div>
                             <div>
                                 
-                                <div className="music-progress-container">
+                                <div className="music-progress-container" onClick={handleSeek}>
                                     <div className="progress-line">
                                         <div
                                             className="progress-indicator"
@@ -258,6 +278,7 @@ const Body = () => {
                                         ref={audioRef}
                                         controls
                                         onTimeUpdate={handleTimeUpdate}
+                                        onEnded={handlePlayNext}
                                         style={{ marginTop: "10px", display: "none" }}
                                         >
                                         <source src={currentSong.musicUrl} type="audio/mpeg" />
@@ -269,7 +290,6 @@ const Body = () => {
                                     <div>
                                         <div className="likeImage" onClick={() => handleLike(currentSong)} ><img src={isSongLiked(currentSong)? "./afterLike.png" : "./beforeLike.png"} alt="heart" />
                                         </div>
-                                        {/* <div><img src="./dots.png" alt="image" onClick={handleLike} /></div> */}
                                     </div>
                                     <div className="play_section_buttons">
                                         <div onClick={handlePlayPrev}><img src="./playback.png" alt="buttons" /></div>
