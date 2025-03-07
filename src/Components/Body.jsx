@@ -48,7 +48,7 @@ const Body = () => {
         if (audioRef.current) {
             audioRef.current.src = song.musicUrl;
             try {
-                await audioRef.current.play(); // Attempt to play
+                await audioRef.current.play(); 
                 setIsPlaying(true);
             } catch (err) {
                 console.warn("Autoplay blocked. User interaction needed.", err);
@@ -118,12 +118,10 @@ const Body = () => {
         const audio = audioRef.current;
         if (!audio) return;
     
-        // Get the clicked position relative to the progress bar
         const progressBar = event.currentTarget;
         const clickX = event.clientX - progressBar.getBoundingClientRect().left;
         const progressBarWidth = progressBar.clientWidth;
     
-        // Calculate the new time based on the percentage clicked
         const newTime = (clickX / progressBarWidth) * audio.duration;
         audio.currentTime = newTime;
     };
