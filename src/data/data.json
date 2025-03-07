@@ -9,84 +9,84 @@
     {
       "title": "Blinding Lights",
       "thumbnail": "https://th.bing.com/th/id/OIP.ixGAHrJZ4Yl_2vPYNSI2ogHaHa?rs=1&pid=ImgDetMain",
-      "musicUrl": "https://example.com/music2.mp3",
+      "musicUrl":  "./audio2.mp3",
       "duration": "3:20",
       "artistName": "The Weeknd"
     },
     {
       "title": "Someone Like You",
       "thumbnail": "https://th.bing.com/th/id/OIP.GU7ItVJ74b9uv6c8wmxKwQHaHa?rs=1&pid=ImgDetMain",
-      "musicUrl": "https://example.com/music3.mp3",
+      "musicUrl":  "./audio3.mp3",
       "duration": "4:45",
       "artistName": "Adele"
     },
     {
         "title": "Uptown Funk",
         "thumbnail": "https://th.bing.com/th/id/OIP.ees0UuZCXNApBmzem9obOQHaFj?rs=1&pid=ImgDetMain",
-        "musicUrl": "https://example.com/music4.mp3",
+        "musicUrl":  "./audio4.mp3",
         "duration": "4:30",
         "artistName": "Mark Ronson ft. Bruno Mars"
     },
     {
         "title": "Bohemian Rhapsody",
         "thumbnail": "https://th.bing.com/th/id/OIP.eexOBPdkLsEGFZD0Z44TOAAAAA?rs=1&pid=ImgDetMain",
-        "musicUrl": "https://example.com/music5.mp3",
+        "musicUrl":  "./audio5.mp3",
         "duration": "5:55",
         "artistName": "Queen"
     },
     {
         "title": "Happier",
         "thumbnail": "https://i.ytimg.com/vi/sSbZTGvfMF8/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music6.mp3",
+        "musicUrl": "./audio6.mp3",
         "duration": "3:34",
         "artistName": "Marshmello ft. Bastille"
     },
     {
         "title": "Levitating",
         "thumbnail": "https://i.ytimg.com/vi/kW3kDIkvm6Y/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music7.mp3",
+        "musicUrl":  "./audio1.mp3",
         "duration": "4:50",
         "artistName": "Dua Lipa ft. DaBaby"
     },
     {
         "title": "Viva La Vida",
         "thumbnail": "https://i.ytimg.com/vi/oZ2hR-Jjsnk/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music8.mp3",
+        "musicUrl":  "./audio3.mp3",
         "duration": "3:40",
         "artistName": "Coldplay"
     },
     {
         "title": "Stay",
         "thumbnail": "https://th.bing.com/th/id/OIP.e1OhsoyewjU4pLYrns8TnQHaEK?rs=1&pid=ImgDetMain",
-        "musicUrl": "https://example.com/music9.mp3",
+        "musicUrl": "./audio2.mp3",
         "duration": "2:21",
         "artistName": "The Kid LAROI & Justin Bieber"
     },
     {
         "title": "Lovely",
         "thumbnail": "https://i.ytimg.com/vi/4B9XMAbH-b0/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music10.mp3",
+        "musicUrl": "./audio3.mp3",
         "duration": "3:20",
         "artistName": "Billie Eilish & Khalid"
     },
     {
         "title": "Heat Waves",
         "thumbnail": "https://i.ytimg.com/vi/bEnm48HSCpU/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music11.mp3",
+        "musicUrl":  "./audio4.mp3",
         "duration": "3:58",
         "artistName": "Glass Animals"
     },
     {
         "title": "Sunflower",
-        "thumbnail": "https://pics.filmaffinity.com/Post_Malone_Swae_Lee_Sunflower_Music_Video-836039064-large.jpg",
-        "musicUrl": "https://example.com/music12.mp3",
+        "thumbnail": "https://th.bing.com/th/id/OIP.on5xcXF--zGlGAulh6MhjwHaHa?rs=1&pid=ImgDetMain",
+        "musicUrl":  "./audio5.mp3",
         "duration": "2:38",
         "artistName": "Post Malone, Swae Lee"
     },
     {
         "title": "Memories",
         "thumbnail": "https://i.ytimg.com/vi/p2duKOmUclc/maxresdefault.jpg",
-        "musicUrl": "https://example.com/music13.mp3",
+        "musicUrl": "./audio6.mp3",
         "duration": "3:09",
         "artistName": "Maroon 5r"
     }      

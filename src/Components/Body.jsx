@@ -13,6 +13,10 @@ const Body = () => {
 
     const [activeTab, setActiveTab] = useState("For You");
     const [playing, setIsPlaying] = useState(false);
+
+    const [likedSongs, setLikedSongs] = useState(() => {
+        return JSON.parse(localStorage.getItem("likedSongs")) || [];
+    })
     useEffect(() => {
         if (!currentSong.musicUrl) return;
 
@@ -26,11 +30,13 @@ const Body = () => {
                 console.warn("Autoplay blocked: Waiting for user interaction.", err);
             }
         };
-
-    playAudio(); // Call the function
+        playAudio();
+    
+        localStorage.setItem("likedSongs", JSON.stringify(likedSongs));
     }, [currentSong]);    
     
-    const handleSongClick = async(song) => {
+    const handleSongClick = async (song) => {
+        setIsPlaying(true);
         setCurrentSong(song);
 
         setRecentlyPlayed((prev) => {
@@ -41,9 +47,35 @@ const Body = () => {
         })
         if (audioRef.current) {
             audioRef.current.src = song.musicUrl;
+            await audioRef.current.play();
         }
 
     }
+
+    const handleLike = (song) => {
+        let updatedLikedSongs;
+        setLikedSongs((prevLikedSongs) => {
+            if (prevLikedSongs.some((s) => s.title === song.title)) {
+                updatedLikedSongs = prevLikedSongs.filter((s) => s.title !== song.title)
+            } else {
+                updatedLikedSongs = [...prevLikedSongs, song]
+            }
+
+            localStorage.setItem("likedSongs", JSON.stringify(updatedLikedSongs));
+            return updatedLikedSongs;
+            
+        })
+    }
+
+    const isSongLiked = (song) => {
+        const likedSongs = JSON.parse(localStorage.getItem("likedSongs")) || [];
+        return likedSongs.some((s) => s.title === song.title);
+    };
+
+    const favouriteSongs = likedSongs.filter((song) =>
+        song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        song.artistName.toLowerCase().includes(searchQuery.toLowerCase())
+    );
 
     const handlePause = () => {
         if (audioRef.current) {
@@ -62,6 +94,20 @@ const Body = () => {
             setProgress(progressPercent);
         }
     };
+
+    const handlePlayNext = () => {
+        const currentIndex = data.findIndex(song => song.title === currentSong.title)
+        const nextIndex = (currentIndex + 1) % data.length; 
+        setCurrentSong(data[nextIndex]);
+        setIsPlaying(true);
+    }
+
+    const handlePlayPrev = () => {
+        const currentIndex = data.findIndex(song => song.title === currentSong.title)
+        const prevIndex = (currentIndex - 1 + data.length) % data.length; 
+        setCurrentSong(data[prevIndex]);
+        setIsPlaying(true);
+    }
 
     const filteredSongs = data.filter((song) =>
         song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -115,7 +161,7 @@ const Body = () => {
                                     <div className="min">{info.duration}</div>
                                 </div>
                                 </div>))) : (
-                                    <p>No songs found</p>
+                                    <h6>No songs found</h6>
                             )}
                         </div>
                     </div>}
@@ -135,6 +181,27 @@ const Body = () => {
                                     onChange={(e) => setSearchQuery(e.target.value)} />
                             </div>
                             <div className="search_icon"><img src="./searchIcon.png" alt="icon-search" /></div>
+                        </div>
+
+                         <div className="music_list_container">
+                         {favouriteSongs.length > 0 ? (
+                             favouriteSongs.map((info, index) => (
+                                 <div className="music_list" key={index} onClick={() => handleSongClick(info)}>
+                                     <div className="profile_image">
+                                         <img src={info.thumbnail} alt="profile" height={50} width={50} />
+                                     </div>
+                                     <div className="music_list_content">
+                                         <div className="tags">
+                                             <div className="title">{info.title}</div>
+                                             <div className="name">{info.artistName}</div>
+                                         </div>
+                                         <div className="min">{info.duration}</div>
+                                     </div>
+                                 </div>
+                             ))
+                         ) : (
+                             <h6>No songs found</h6>
+                         )}
                         </div>
                     </div>
                     }
@@ -164,7 +231,7 @@ const Body = () => {
                                             <div className="min">{info.duration}</div>
                                         </div>
                                     </div>))) : (
-                                    <p>No songs found</p>
+                                    <h6>No songs found</h6>
                                 )
                             }
                         </div>
@@ -198,17 +265,20 @@ const Body = () => {
                                     </audio>
                                 </div>
                                
-
                                 <div className="card_container_play_section">
-                                    <div><img src="./dots.png" alt="image" /></div>
+                                    <div>
+                                        <div className="likeImage" onClick={() => handleLike(currentSong)} ><img src={isSongLiked(currentSong)? "./afterLike.png" : "./beforeLike.png"} alt="heart" />
+                                        </div>
+                                        {/* <div><img src="./dots.png" alt="image" onClick={handleLike} /></div> */}
+                                    </div>
                                     <div className="play_section_buttons">
-                                        <div><img src="./playback.png" alt="buttons" /></div>
+                                        <div onClick={handlePlayPrev}><img src="./playback.png" alt="buttons" /></div>
                                         <div onClick={handlePause}>
                                         <img className="playPauseButton" src={playing? "./pauseIcon.png" : "./playIcon.png"} alt="buttons" /></div>
-                                        <div><img src="./playForward.png" alt="buttons" /></div>
+                                        <div onClick={handlePlayNext}><img src="./playForward.png" alt="buttons" /></div>
                                     </div>
                                     <div>
-                                        <img src="./vol.png" alt="volume button" />
+                                        <img src="./vol.png" alt="volume button" onClick={handlePause} />
                                     </div>
                                 </div>
                             </div>
