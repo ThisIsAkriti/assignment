@@ -77,6 +77,12 @@ $breakpoints: (
                     gap: 16px;
                 }
 
+                @include responsive(sm) {
+                    display:flex;
+                    flex-direction: column;
+                    gap: 0;
+                }
+
                 p{
                     color:rgb(140, 140, 140);
                     &:hover {
@@ -220,10 +226,23 @@ $breakpoints: (
 
         .player_content{
             width: 400px;
+            @include responsive(sm){
+                width: 300px;
+            }
+            
             p{
                 color:rgb(175, 175, 175);
             }
             .card_container{
+
+                .CoverImages{
+                    width: 400px;
+
+                    @include responsive(sm){
+                        width: 300px;
+                    }
+                }
+
                 img{
                     object-fit: cover;
                     border-radius: 10px;

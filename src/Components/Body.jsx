@@ -296,7 +296,7 @@ const Body = () => {
                         <h1>{currentSong.title}</h1>
                         <p>{ currentSong.artistName}</p>
                         <div className="card_container">
-                            <div><img src={currentSong.thumbnail} ref={imgRef} alt="cover image"height={400} width={400} /></div>
+                            <div><img src={currentSong.thumbnail} ref={imgRef} alt="cover image" className="CoverImages" /></div>
                             <div>
                                 
                                 <div className="music-progress-container" onClick={handleSeek}>
