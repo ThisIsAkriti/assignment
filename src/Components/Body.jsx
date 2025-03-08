@@ -51,7 +51,7 @@ const Body = () => {
 
                 ctx.drawImage(img, 0, 0, 1, 1);
 
-                window.addEventListener('resize', () =>{
+                const applyGradient = () =>{
                 const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
 
                 if (window.innerWidth >= 992) {
@@ -60,7 +60,11 @@ const Body = () => {
                     setBgGradient(`linear-gradient(to top, rgb(${r}, ${g}, ${b}), #111)`);
                     }
                     
-                });
+                };
+
+                applyGradient();
+
+                window.addEventListener('resize', applyGradient);
 
             }
         }
