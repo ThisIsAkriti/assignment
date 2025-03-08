@@ -16,7 +16,11 @@ const Body = () => {
 
     const [likedSongs, setLikedSongs] = useState(() => {
         return JSON.parse(localStorage.getItem("likedSongs")) || [];
-    })
+    });
+
+    const [bgGradient, setBgGradient] = useState("linear-gradient(to bottom, #000000, #333333)");
+    const imgRef = useRef(null);
+
     useEffect(() => {
         if (!currentSong.musicUrl) return;
 
@@ -26,6 +30,7 @@ const Body = () => {
         const playAudio = async () => {
             try {
                 await audio.play();
+                setIsPlaying(true);
             } catch (err) {
                 console.warn("Autoplay blocked: Waiting for user interaction.", err);
             }
@@ -33,7 +38,33 @@ const Body = () => {
         playAudio();
     
         localStorage.setItem("likedSongs", JSON.stringify(likedSongs));
-    }, [currentSong]);    
+
+        if (currentSong.thumbnail) {
+            const img = new Image();
+            img.crossOrigin = 'Anonymous';
+            img.src = currentSong.thumbnail;
+            img.onload = () => {
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = 1;
+                canvas.height = 1;
+
+                ctx.drawImage(img, 0, 0, 1, 1);
+
+                window.addEventListener('resize', () =>{
+                const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;
+
+                if (window.innerWidth >= 992) {
+                    setBgGradient(`linear-gradient(to left, rgb(${r}, ${g}, ${b}), #111)`);
+                } else {
+                    setBgGradient(`linear-gradient(to top, rgb(${r}, ${g}, ${b}), #111)`);
+                    }
+                    
+                });
+
+            }
+        }
+    }, [currentSong ,currentSong.thumbnail]);    
     
     const handleSongClick = async (song) => {
         setIsPlaying(true);
@@ -256,12 +287,12 @@ const Body = () => {
                     </div>}
                 </div>
 
-                <div className="player">
+                <div className="player" style={{background : bgGradient, transition: "background 0.5s ease"}}>
                     <div className="player_content">
                         <h1>{currentSong.title}</h1>
                         <p>{ currentSong.artistName}</p>
                         <div className="card_container">
-                            <div><img src={currentSong.thumbnail} alt="cover image"height={400} width={400} /></div>
+                            <div><img src={currentSong.thumbnail} ref={imgRef} alt="cover image"height={400} width={400} /></div>
                             <div>
                                 
                                 <div className="music-progress-container" onClick={handleSeek}>

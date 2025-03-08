@@ -44,7 +44,6 @@ $breakpoints: (
     @include responsive(lg) {
         display: flex;
         flex-direction: column;
-        padding-bottom:50px;
     }
 
     .navigation{
@@ -105,9 +104,7 @@ $breakpoints: (
         overflow-y: auto; 
 
         @include responsive(lg) {
-            border:1px solid rgba(42, 42, 42, 0.718);
             margin: 20px;
-            border-radius: 8px;
             min-height: fit-content;
         }
 
@@ -212,6 +209,15 @@ $breakpoints: (
         justify-content: center;
         align-items: center;
         border-radius: 10px;
+
+        @include responsive(lg) {
+            padding: 50px;
+
+            .gradient-bg {
+                background: linear-gradient(to top, rgb(var(--r), var(--g), var(--b)), #111);
+            }
+        }
+
         .player_content{
             width: 400px;
             p{
